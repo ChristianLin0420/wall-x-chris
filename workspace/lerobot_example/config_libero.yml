@@ -1,0 +1,95 @@
+# Training Configuration for Wall-X on LIBERO Benchmark Dataset
+# LIBERO: Lifelong Benchmark for Robot Learning (NeurIPS 2023)
+# Robot: Franka Panda (7-DOF single arm)
+
+# Model and paths configuration
+log_name: "wallx_libero_training"
+log_project: "vla_libero"
+model_type: qwen2_5
+processor_path: "/path/to/model/"
+pretrained_qwen_vl_path: "/path/to/qwen_vl_model/"
+qwen_vl_act_config_path: "/path/to/config.json"
+action_tokenizer_path: "/path/to/fast/"
+save_path: "/path/to/workspace/libero_training/"
+
+# Torch Profile
+profile: False
+profile_save_path: /path/to/profile/
+profile_wait_iters: 10
+profile_warmup_iters: 5
+profile_active_iters: 2
+
+# Training hyperparameters
+num_warmup_steps: 100
+num_training_steps: 64000000
+learning_rate: 0.00009
+min_lr: 0.00005
+num_epoch: 100
+gradient_accumulation_steps: 32
+batch_size_per_gpu: 8
+padding_side: left
+
+# LIBERO Robot Configuration (7-DOF Franka Panda)
+# Actions: 3D position + 3D rotation + gripper = 7 DOF
+dof_config:
+  ee_cartesian_pos: 3      # End-effector position (x, y, z)
+  ee_rotation: 3           # End-effector rotation (roll, pitch, yaw)
+  gripper: 1               # Gripper control (open/close)
+
+# Agent proprioception configuration (8-dim in LIBERO)
+# State: 3D position + 4D quaternion + gripper = 8 dimensions
+agent_pos_config:
+  ee_cartesian_pos: 3      # EEF position (x, y, z)
+  ee_orientation_quat: 4   # Quaternion orientation (x, y, z, w)
+  gripper: 1               # Gripper position
+
+# Checkpoint resuming configuration
+resume:
+  ckpt: "/path/to/resume_model/"
+  load_ckpt_only: true
+
+# Data configuration
+data:
+  use_lerobot: true
+
+  # LeRobot LIBERO dataset configuration
+  # Available suites:
+  #   - lerobot/libero_spatial_image (10 tasks, spatial reasoning)
+  #   - lerobot/libero_object_image (10 tasks, object variations)
+  #   - lerobot/libero_goal_image (10 tasks, goal variations)
+  #   - lerobot/libero_90_image (90 short-horizon tasks)
+  #   - lerobot/libero_10_image (10 long-horizon tasks)
+  lerobot_config:
+    repo_id: "lerobot/libero_spatial_image"  # Start with spatial tasks
+    root: null
+    episodes: null
+    image_transforms: null
+    delta_timestamps: null
+    tolerance_s: 1e-4
+    revision: null
+    force_cache_sync: false
+    download_videos: true
+    video_backend: "pyav"
+
+  action_horizon: 32
+  train_test_split: 0.95
+
+  # Action keys for LIBERO (7-DOF)
+  # Note: These are the keys in the LIBERO dataset after mapping
+  obs_action_keys:
+    - ee_cartesian_pos
+    - ee_rotation
+    - gripper
+
+  predict_action_keys:
+    - ee_cartesian_pos
+    - ee_rotation
+    - gripper
+
+  # Image resolution configuration for LIBERO cameras
+  # LIBERO provides 256x256 images from 2 cameras:
+  #   - agentview: main/face camera
+  #   - robot0_eye_in_hand: wrist camera
+  resolution:
+    agentview: 256              # Main camera view
+    robot0_eye_in_hand: 256     # Wrist camera view

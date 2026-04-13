@@ -20,6 +20,27 @@ CAMERA_KEY_MAPPINGS = {
         "observation.images.cam_left_wrist": "left_wrist_view",
         "observation.images.cam_right_wrist": "right_wrist_view",
     },
+    # LIBERO datasets (Franka Panda, 2 cameras)
+    "lerobot/libero_spatial_image": {
+        "observation.images.image": "agentview",
+        "observation.images.image2": "robot0_eye_in_hand",
+    },
+    "lerobot/libero_object_image": {
+        "observation.images.image": "agentview",
+        "observation.images.image2": "robot0_eye_in_hand",
+    },
+    "lerobot/libero_goal_image": {
+        "observation.images.image": "agentview",
+        "observation.images.image2": "robot0_eye_in_hand",
+    },
+    "lerobot/libero_90_image": {
+        "observation.images.image": "agentview",
+        "observation.images.image2": "robot0_eye_in_hand",
+    },
+    "lerobot/libero_10_image": {
+        "observation.images.image": "agentview",
+        "observation.images.image2": "robot0_eye_in_hand",
+    },
 }
 
 

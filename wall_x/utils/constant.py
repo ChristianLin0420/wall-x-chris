@@ -188,4 +188,49 @@ action_statistic_dof = {
         "height": {"min": [0.0], "delta": [0.4535]},
         "head_actions": {"min": [-0.1746, 0.0523], "delta": [0.2444, 0.4713]},
     },
+    # LIBERO datasets (Franka Panda 7-DOF, single arm)
+    # Workspace bounds estimated from typical Franka Panda manipulation tasks
+    # Note: These are conservative estimates and should be validated with actual dataset statistics
+    "libero_spatial": {
+        "ee_cartesian_pos": {
+            "min": [0.2, -0.5, 0.0],      # Workspace bounds (x, y, z)
+            "delta": [0.6, 1.0, 0.8],      # Range: x=[0.2,0.8], y=[-0.5,0.5], z=[0.0,0.8]
+        },
+        "ee_rotation": {
+            "min": [-3.14159, -3.14159, -3.14159],  # Full rotation range
+            "delta": [6.28318, 6.28318, 6.28318],   # 2*pi for each axis
+        },
+        "gripper": {
+            "min": [0.0],                  # Closed gripper
+            "delta": [0.08],               # Fully open (8cm for Franka)
+        },
+        "ee_orientation_quat": {           # For proprioception (quaternion)
+            "min": [-1.0, -1.0, -1.0, -1.0],
+            "delta": [2.0, 2.0, 2.0, 2.0],
+        },
+    },
+    "libero_object": {
+        "ee_cartesian_pos": {"min": [0.2, -0.5, 0.0], "delta": [0.6, 1.0, 0.8]},
+        "ee_rotation": {"min": [-3.14159, -3.14159, -3.14159], "delta": [6.28318, 6.28318, 6.28318]},
+        "gripper": {"min": [0.0], "delta": [0.08]},
+        "ee_orientation_quat": {"min": [-1.0, -1.0, -1.0, -1.0], "delta": [2.0, 2.0, 2.0, 2.0]},
+    },
+    "libero_goal": {
+        "ee_cartesian_pos": {"min": [0.2, -0.5, 0.0], "delta": [0.6, 1.0, 0.8]},
+        "ee_rotation": {"min": [-3.14159, -3.14159, -3.14159], "delta": [6.28318, 6.28318, 6.28318]},
+        "gripper": {"min": [0.0], "delta": [0.08]},
+        "ee_orientation_quat": {"min": [-1.0, -1.0, -1.0, -1.0], "delta": [2.0, 2.0, 2.0, 2.0]},
+    },
+    "libero_90": {
+        "ee_cartesian_pos": {"min": [0.2, -0.5, 0.0], "delta": [0.6, 1.0, 0.8]},
+        "ee_rotation": {"min": [-3.14159, -3.14159, -3.14159], "delta": [6.28318, 6.28318, 6.28318]},
+        "gripper": {"min": [0.0], "delta": [0.08]},
+        "ee_orientation_quat": {"min": [-1.0, -1.0, -1.0, -1.0], "delta": [2.0, 2.0, 2.0, 2.0]},
+    },
+    "libero_10": {
+        "ee_cartesian_pos": {"min": [0.2, -0.5, 0.0], "delta": [0.6, 1.0, 0.8]},
+        "ee_rotation": {"min": [-3.14159, -3.14159, -3.14159], "delta": [6.28318, 6.28318, 6.28318]},
+        "gripper": {"min": [0.0], "delta": [0.08]},
+        "ee_orientation_quat": {"min": [-1.0, -1.0, -1.0, -1.0], "delta": [2.0, 2.0, 2.0, 2.0]},
+    },
 }
